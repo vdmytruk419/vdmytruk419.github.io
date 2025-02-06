@@ -47,7 +47,6 @@
             const decoded = new TextDecoder("utf-8").decode(inflated);
             const db = JSON.parse(decoded);
             out.innerHTML = renderUnit(db.root);
-            console.log(db);
         } catch (error) {
         console.error("Error decompressing:", error);
         }

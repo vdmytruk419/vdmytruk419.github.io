@@ -71,4 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fly-content').style.display = 'none';
         document.getElementById('return-form').style.display = 'flex';
     });
+
+    document.getElementById('tech-button').addEventListener('click', function() {
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('tech-form').style.display = 'flex';
+    });
 });

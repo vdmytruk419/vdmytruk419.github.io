@@ -135,3 +135,14 @@ button {
   box-sizing: border-box;
   margin-bottom: 10px;
 }
+
+#tech-details-form {
+    width: 320px;
+}
+
+#tech-details-form label, #tech-details-form textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}

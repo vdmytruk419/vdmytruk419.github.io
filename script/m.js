@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (username) {
         document.getElementById('username-display').textContent = username;
     } else {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }
 
     document.getElementById('logout-button').addEventListener('click', function() {
         localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     });
 
     document.getElementById('fly-button').addEventListener('click', function() {
@@ -21,6 +21,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('target-form').style.display = 'flex';
     });
 
+    document.getElementById('target-data-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const squares = document.getElementById('squares').value;
+        const targetType = document.getElementById('target-type').value;
+        const targetDescription = document.getElementById('target-description').value;
+        const username = localStorage.getItem('username'); // Отримуємо ім'я користувача
+
+        const target = {
+            squares: squares,
+            targetType: targetType,
+            targetDescription: targetDescription,
+            username: username // Додаємо ім'я користувача до об'єкта
+        };
+
+        localStorage.setItem('target', JSON.stringify(target));
+
+        document.getElementById('target-form').style.display = 'none';
+        document.getElementById('target-info').style.display = 'flex';
+
+        displayTargetInfo();
+    });
+
     function displayTargetInfo() {
         const target = JSON.parse(localStorage.getItem('target'));
         if (target) {
@@ -31,29 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target.targetDescription) {
                 targetData += `<p>Опис цілі: ${target.targetDescription}</p>`;
             }
+            targetData += `<p>Створено: ${target.username}</p>`; // Додаємо ім'я користувача до відображення
             document.getElementById('target-data').innerHTML = targetData;
         }
     }
-
-    document.getElementById('target-data-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const squares = document.getElementById('squares').value;
-        const targetType = document.getElementById('target-type').value;
-        const targetDescription = document.getElementById('target-description').value;
-
-        const target = {
-            squares: squares,
-            targetType: targetType,
-            targetDescription: targetDescription
-        };
-
-        localStorage.setItem('target', JSON.stringify(target));
-
-        document.getElementById('target-form').style.display = 'none';
-        document.getElementById('target-info').style.display = 'flex';
-
-        displayTargetInfo();
-    });
 
     document.getElementById('edit-target-button').addEventListener('click', function() {
         document.getElementById('target-info').style.display = 'none';

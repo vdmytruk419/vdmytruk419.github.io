@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сторінка M</title>
+    <link rel="stylesheet" href="style-m.css">
+</head>
+<body>
+    <div class="header">
+        <span id="username-display"></span>
+        <button id="logout-button">Вийти</button>
+    </div>
+    <div class="content" id="main-content">
+        <button id="fly-button" class="big-button blue-button">Виліт</button>
+        <button id="tech-button" class="red-button">Тех. неполадки</button>
+    </div>
+    <div class="content" id="fly-content" style="display: none;">
+        <button id="target-button" class="big-button green-button">Виявлено ціль</button>
+        <button id="return-button" class="blue-button">Повернення</button>
+        <button id="loss-button" class="red-button">Втрата</button>
+    </div>
+    <div class="content" id="target-form" style="display: none;">
+        <form id="target-data-form">
+            <label for="squares">Квадрати:</label>
+            <input type="text" id="squares" name="squares" required class="input-field"><br>
+            <label for="target-type">Тип цілі:</label>
+            <input type="text" id="target-type" name="target-type" required class="input-field"><br>
+            <label for="target-description">Опис цілі:</label>
+            <textarea id="target-description" name="target-description" class="input-field"></textarea><br>
+            <button type="submit" class="big-button green-button">Передати</button>
+        </form>
+    </div>
+    <div class="content" id="target-info" style="display: none;">
+        <h2>Виявлена ціль</h2>
+        <div class="target-data-block">
+            <div id="target-data"></div>
+            <button id="edit-target-button" class="edit-button" title="Редагувати"></button>
+        </div>
+        <button id="return-fly-button" class="blue-button">Повернення</button>
+        <button id="loss-fly-button" class="red-button">Втрата</button>
+    </div>
+    <script src="page-m.js"></script>
+</body>
+</html>

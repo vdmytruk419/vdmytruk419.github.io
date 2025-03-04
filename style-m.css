@@ -1,0 +1,126 @@
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+}
+
+.header #username-display {
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+}
+
+.big-button {
+    padding: 30px 50px;
+    font-size: 20px;
+    margin: 30px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
+}
+
+.blue-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
+    margin: 15px 0;
+}
+
+.red-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
+    margin: 15px 0;
+}
+
+.green-button {
+    background-color: #28a745;
+    color: white;
+    padding: 30px 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
+    margin: 30px 0;
+}
+
+button {
+  font-size: inherit;
+}
+
+#target-data-form {
+    width: 320px;
+}
+
+#target-data-form label, #target-data-form input, #target-data-form textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-field {
+    padding: 15px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#target-data-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.target-data-block {
+    border: 2px solid #28a745;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 320px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #d4edda;
+}
+
+.edit-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    background-image: url('edit-icon.svg'); /* Використовуємо SVG файл */
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+}

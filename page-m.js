@@ -66,4 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('target-description').value = target.targetDescription;
         }
     });
+
+    document.getElementById('return-button').addEventListener('click', function() {
+        document.getElementById('fly-content').style.display = 'none';
+        document.getElementById('return-form').style.display = 'flex';
+    });
 });

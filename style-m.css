@@ -124,3 +124,14 @@ button {
     border: none;
     cursor: pointer;
 }
+
+#return-time-form {
+    width: 320px;
+}
+
+#return-time-form label, #return-time-form input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}

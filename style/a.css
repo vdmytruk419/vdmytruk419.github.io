@@ -59,3 +59,48 @@
     align-items: center;
     margin-right: 10px;
 }
+
+#positions-list {
+    text-align: left;
+    width: 100%;
+}
+
+.position-item {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.position-item div:first-child {
+    font-weight: bold;
+    text-align: left;
+    padding: 4px 8px;
+    background: #ddd;
+}
+
+.position-item div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    margin: 4px; /* Змінено padding на margin */
+}
+
+.delete-button {
+    margin-left: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-button {
+    margin: 0 4px 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

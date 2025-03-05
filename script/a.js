@@ -50,14 +50,47 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayPositions() {
         const positionsList = document.getElementById('positions-list');
         positionsList.innerHTML = '';
-
+    
         const positions = JSON.parse(localStorage.getItem('positions')) || [];
-
+    
         positions.forEach(position => {
             const positionDiv = document.createElement('div');
-            positionDiv.innerHTML = `<strong>${position.name}:</strong> ${position.squares[0]} ... ${position.squares[position.squares.length - 1]}`;
+            positionDiv.classList.add('position-item'); // Додаємо клас для стилізації
+    
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = position.name;
+            positionDiv.appendChild(nameDiv);
+    
+            const squaresDiv = document.createElement('div');
+            squaresDiv.textContent = `${position.squares[0]} ... ${position.squares[position.squares.length - 1]}`;
+            positionDiv.appendChild(squaresDiv);
+    
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '-';
+            deleteButton.classList.add('delete-button'); // Додаємо клас для стилізації
+            deleteButton.addEventListener('click', function() {
+                deleteSquares(position.name);
+            });
+            squaresDiv.appendChild(deleteButton);
+            
+            const addButton = document.createElement('button');
+            addButton.textContent = '+ додати';
+            addButton.classList.add('add-button'); // Додаємо клас для стилізації
+            positionDiv.appendChild(addButton);
+    
             positionsList.appendChild(positionDiv);
         });
+    }
+    
+    function deleteSquares(positionName) {
+        let positions = JSON.parse(localStorage.getItem('positions')) || [];
+        const positionIndex = positions.findIndex(p => p.name === positionName);
+    
+        if (positionIndex !== -1) {
+            positions[positionIndex].squares = [];
+            localStorage.setItem('positions', JSON.stringify(positions));
+            displayPositions(); // Оновлюємо список
+        }
     }
 
     displayPositions();

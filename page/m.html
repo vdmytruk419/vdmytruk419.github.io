@@ -23,6 +23,7 @@
     </div>
     <div class="content" id="target-form" style="display: none;">
         <form id="target-data-form">
+            <input type="hidden" id="target-form-id" name="target-id" value="">
             <label for="squares">Квадрати:</label>
             <input type="text" id="squares" name="squares" required class="input-field"><br>
             <label for="target-type">Тип цілі:</label>
@@ -30,6 +31,7 @@
             <label for="target-description">Опис цілі:</label>
             <textarea id="target-description" name="target-description" class="input-field"></textarea><br>
             <button type="submit" class="big-button green-button">Передати</button>
+            <button type="button" id="cancel-target-button" class="red-button">Скасувати</button>
         </form>
     </div>
     <div class="content" id="target-info" style="display: none;">

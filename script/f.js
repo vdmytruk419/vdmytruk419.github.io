@@ -11,8 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = '../index.html';
     });
 
+    function populatePositions() {
+        const positionSelect = document.getElementById('position-select');
+        positionSelect.innerHTML = '';
+
+        const positions = JSON.parse(localStorage.getItem('positions')) || [];
+
+        positions.forEach(position => {
+            const option = document.createElement('option');
+            option.value = position.name;
+            option.textContent = position.name;
+            positionSelect.appendChild(option);
+        });
+    }
+
+    populatePositions(); // Заповнюємо список при завантаженні сторінки
+
     document.getElementById('forward-button').addEventListener('click', function() {
-        // Тут буде логіка для переходу до наступного контейнера
-        alert('Кнопка "Вперед" натиснута'); // Замініть на ваш код
+        document.getElementById('position-container').style.display = 'none';
+        document.getElementById('device-quantity-form').style.display = 'flex';
     });
 });

@@ -12,14 +12,23 @@
         <span id="username-display"></span>
         <button id="logout-button">Вийти</button>
     </div>
-    <div class="container" id="position-container">
+    <div class="content" id="position-container">
         <label for="position-select">Виберіть позицію:</label>
-        <select id="position-select">
-            <option value="1">Позиція 1</option>
-            <option value="2">Позиція 2</option>
-            <option value="3">Позиція 3</option>
-        </select>
+        <select id="position-select"></select>
         <button id="forward-button" class="big-button blue-button">Вперед</button>
+    </div>
+    <div class="content" id="device-quantity-form" style="display: none;">
+        <div class="input-row">
+            <div class="input-group">
+                <label for="device">Засіб:</label>
+                <input type="text" id="device" name="device" required class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="quantity">Кількість:</label>
+                <input type="number" id="quantity" name="quantity" required class="input-field">
+            </div>
+        </div>
+        <button id="next-button" class="big-button blue-button">Вперед</button>
     </div>
     <script src="../script/f.js"></script>
 </body>

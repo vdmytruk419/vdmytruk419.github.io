@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сторінка A</title>
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../style/m.css">
+    <link rel="stylesheet" href="../style/a.css">
+</head>
+<body>
+    <div class="header">
+        <span id="username-display"></span>
+        <button id="logout-button">Вийти</button>
+    </div>
+    <div class="content" id="create-position-form">
+        <h2>Позиції</h2>
+        <div id="positions-list"></div>
+        <button id="create-position-button" class="big-button blue-button">Додати позицію</button>
+    </div>
+    <div class="content" id="prefix-squares-form" style="display: none;">
+        <h2>Додати позицію</h2>
+        <label for="position-name">Назва:</label>
+        <input type="text" id="position-name" name="position-name" required class="input-field">
+        <div class="input-row">
+            <div class="input-group">
+                <label for="prefix">Префікс:</label>
+                <input type="text" id="prefix" name="prefix" required class="input-field">
+            </div>
+            <div class="input-group">
+                <label for="squares-count">Кількість квадратів:</label>
+                <input type="number" id="squares-count" name="squares-count" required class="input-field">
+            </div>
+        </div>
+        <button id="next-button" class="big-button blue-button">Далі</button>
+    </div>
+    <div class="content" id="checkbox-list" style="display: none;">
+        <h2>Виберіть квадрати</h2>
+        <div id="checkboxes"></div>
+        <button id="submit-checkboxes" class="big-button green-button">Підтвердити</button>
+    </div>
+    <script src="../script/a.js"></script>
+</body>
+</html>

@@ -16,14 +16,14 @@ body {
     font-weight: bold;
 }
 
-.container {
+.content { /* Змінено .container на .content */
     text-align: center;
     width: 320px;
     margin: 20px auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    min-height: calc(100vh - 90px); /* Змінюємо min-height */
+    min-height: calc(100vh - 90px);
 }
 
 label, select, button {
@@ -70,4 +70,28 @@ select {
 #logout-button {
     width: auto;
     margin: 0;
+}
+
+.input-field { /* Додано стилі для input-field */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.input-row { /* Додано стилі для input-row */
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-group { /* Додано стилі для input-group */
+    width: 48%;
+}
+
+.input-group label { /* Додано стилі для input-group label */
+    display: block;
+    margin-bottom: 5px;
 }

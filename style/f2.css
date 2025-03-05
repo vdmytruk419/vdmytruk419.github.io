@@ -1,0 +1,26 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header #username-display {
+    font-weight: bold;
+}
+
+.content {
+    margin: 20px;
+}
+
+#approved-targets-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+}

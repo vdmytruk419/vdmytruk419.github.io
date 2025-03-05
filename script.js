@@ -14,3 +14,22 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         window.location.href = '404.html';
     }
 });
+
+function checkNotificationsPermission() {
+    if (Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                console.log('Дозвіл на сповіщення отримано!');
+            } else {
+                console.log('Дозвіл на сповіщення відхилено!');
+            }
+        });
+    } else if (Notification.permission === 'granted') {
+        console.log('Сповіщення вже дозволені!');
+    } else {
+        console.log('Сповіщення заборонені!');
+    }
+}
+
+checkNotificationsPermission(); // Перевіряємо дозвіл при завантаженні сторінки
+

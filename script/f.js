@@ -31,4 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('position-container').style.display = 'none';
         document.getElementById('device-quantity-form').style.display = 'flex';
     });
+
+    document.getElementById('next-button').addEventListener('click', function() {
+        window.location.href = 'f2.html';
+    });
 });

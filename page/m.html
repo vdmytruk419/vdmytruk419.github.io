@@ -5,56 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>Сторінка M</title>
-    <link rel="stylesheet" href="../style/m.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="header">
-        <span id="username-display"></span>
-        <button id="logout-button">Вийти</button>
+<body class="font-sans">
+    <div class="header bg-gray-100 p-3 flex justify-between items-center">
+        <span id="username-display" class="font-semibold"></span>
+        <button id="logout-button" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-sm">Вийти</button>
     </div>
-    <div class="content" id="main-content">
-        <button id="fly-button" class="big-button blue-button">Виліт</button>
-        <button id="tech-button" class="red-button">Тех. неполадки</button>
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] max-w-sm mx-auto" id="main-content">
+        <button id="fly-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded w-full mb-8">Виліт</button>
+        <button id="tech-button" class="red-button bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded w-full mb-4">Тех. неполадки</button>
     </div>
-    <div class="content" id="fly-content" style="display: none;">
-        <button id="target-button" class="big-button green-button">Виявлено ціль</button>
-        <button id="return-button" class="blue-button">Повернення</button>
-        <button id="loss-button" class="red-button">Втрата</button>
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] hidden max-w-sm mx-auto" id="fly-content">
+        <button id="target-button" class="big-button bg-green-500 hover:bg-green-700 text-white font-bold py-8 px-12 rounded w-full mb-8">Виявлено ціль</button>
+        <button id="return-button" class="blue-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded w-full mb-4">Повернення</button>
+        <button id="loss-button" class="red-button bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded w-full mb-4">Втрата</button>
     </div>
-    <div class="content" id="target-form" style="display: none;">
-        <form id="target-data-form">
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] hidden max-w-sm mx-auto" id="target-form">
+        <form id="target-data-form" class="w-80">
             <input type="hidden" id="target-form-id" name="target-id" value="">
-            <label for="squares">Квадрати:</label>
-            <input type="text" id="squares" name="squares" required class="input-field"><br>
-            <label for="target-type">Тип цілі:</label>
-            <input type="text" id="target-type" name="target-type" required class="input-field"><br>
-            <label for="target-description">Опис цілі:</label>
-            <textarea id="target-description" name="target-description" class="input-field"></textarea><br>
-            <button type="submit" class="big-button green-button">Передати</button>
-            <button type="button" id="cancel-target-button" class="red-button">Скасувати</button>
+            <label for="squares" class="block text-sm font-medium text-gray-700">Квадрати:</label>
+            <input type="text" id="squares" name="squares" required class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 p-3">
+            <label for="target-type" class="block text-sm font-medium text-gray-700">Тип цілі:</label>
+            <input type="text" id="target-type" name="target-type" required class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 p-3">
+            <label for="target-description" class="block text-sm font-medium text-gray-700">Опис цілі:</label>
+            <textarea id="target-description" name="target-description" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 p-3"></textarea>
+            <button type="submit" class="big-button bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded w-full mb-4">Передати</button>
+            <button type="button" id="cancel-target-button" class="red-button bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded w-full">Скасувати</button>
         </form>
     </div>
-    <div class="content" id="target-info" style="display: none;">
-        <h2>Виявлена ціль</h2>
-        <div class="target-data-block">
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] hidden max-w-sm mx-auto" id="target-info">
+        <h2 class="text-2xl font-semibold mb-4">Виявлена ціль</h2>
+        <div class="target-data-block border-2 border-green-500 bg-green-100 p-4 mb-5 w-80 relative">
             <div id="target-data"></div>
-            <button id="edit-target-button" class="edit-button" title="Редагувати"></button>
+            <button id="edit-target-button" class="absolute top-1 right-1 w-6 h-6 bg-cover" style="background-image: url('../edit-icon.svg');" title="Редагувати"></button>
         </div>
-        <button id="return-fly-button" class="blue-button">Повернення</button>
-        <button id="loss-fly-button" class="red-button">Втрата</button>
+        <button id="return-fly-button" class="blue-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded w-full mb-4">Повернення</button>
+        <button id="loss-fly-button" class="red-button bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded w-full">Втрата</button>
     </div>
-    <div class="content" id="return-form" style="display: none;">
-        <form id="return-time-form">
-            <label for="return-time">Через скільки хвилин повернення:</label>
-            <input type="number" id="return-time" name="return-time" required class="input-field"><br>
-            <button type="submit" class="big-button blue-button">Підтвердити</button>
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] hidden max-w-sm mx-auto" id="return-form">
+        <form id="return-time-form" class="w-80">
+            <label for="return-time" class="block text-sm font-medium text-gray-700">Через скільки хвилин повернення:</label>
+            <input type="number" id="return-time" name="return-time" required class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 p-3">
+            <button type="submit" class="big-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded w-full">Підтвердити</button>
         </form>
     </div>
-    <div class="content" id="tech-form" style="display: none;">
-        <form id="tech-details-form">
-            <label for="tech-details">Деталі тех. несправності:</label>
-            <textarea id="tech-details" name="tech-details" required class="input-field"></textarea><br>
-            <button type="submit" class="big-button green-button">Передати</button>
+    <div class="content flex flex-col items-center justify-center min-h-[calc(100vh-60px)] hidden max-w-sm mx-auto" id="tech-form">
+        <form id="tech-details-form" class="w-80">
+            <label for="tech-details" class="block text-sm font-medium text-gray-700">Деталі тех. несправності:</label>
+            <textarea id="tech-details" name="tech-details" required class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-4 p-3"></textarea>
+            <button type="submit" class="big-button bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded w-full">Передати</button>
         </form>
     </div>
     <script src="../script/m.js"></script>

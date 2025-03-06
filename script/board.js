@@ -34,9 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetsList = document.getElementById('targets-list-cards');
         targetsList.innerHTML = ''; // Очищення списку
 
-        const targets = JSON.parse(localStorage.getItem('targets')) || [];
+        let targets = JSON.parse(localStorage.getItem('targets')) || [];
         const takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || []; // Отримання takeoffs з localStorage
 
+        targets = targets.filter(target => target.id);
         // Сортування цілей за часом створення (від найновішої до найстарішої)
         targets.sort((a, b) => new Date(b.creationTime) - new Date(a.creationTime));
 

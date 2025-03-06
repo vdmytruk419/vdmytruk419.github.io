@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const username = localStorage.getItem('username');
     
         const target = {
-            id: targetId ? parseInt(targetId) : Date.now(), // Використовуємо ID з форми або генеруємо новий
+            id: targetId
+                ? targetId
+                : (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)), // Використовуємо ID з форми або генеруємо новий
             squares: squares,
             targetType: targetType,
             targetDescription: targetDescription,
@@ -40,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         let targets = JSON.parse(localStorage.getItem('targets')) || [];
         if (targetId) { // Якщо ID є, редагуємо існуючий об'єкт
-            const index = targets.findIndex(t => t.id === parseInt(targetId));
+            const index = targets.findIndex(t => t.id === targetId);
             if (index !== -1) {
                 targets[index] = target;
             }
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('edit-target-button').addEventListener('click', function() {
         const targetId = document.getElementById('target-id').value;
         const targets = JSON.parse(localStorage.getItem('targets')) || [];
-        const target = targets.find(t => t.id === parseInt(targetId));
+        const target = targets.find(t => t.id === targetId);
     
         if (target) {
             document.getElementById('target-form-id').value = target.id; // Заповнюємо ID в формі

@@ -10,6 +10,8 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         window.location.href = 'page/a.html';
     } else if(username.toLowerCase().startsWith('dutymavic')) {
         window.location.href = 'page/dm.html';
+    } else if (username === 'admin17') {
+        window.location.href = 'page/board.html';
     } else {
         window.location.href = '404.html';
     }

@@ -43,12 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // показуємо лише цілі, що мають ID
         targets = targets.filter(target => target.id);
-        // показуємо лише цілі, які не закриті
-        targets = targets.filter(target => target.status !== 'Closed');
         // Сортування цілей за часом створення (від найновішої до найстарішої)
         targets.sort((a, b) => new Date(b.creationTime) - new Date(a.creationTime));
 
-        targets.forEach(target => {
+        targets.filter(target => target.status !== 'Closed').forEach(target => {
             let cardClass = 'bg-white rounded-lg shadow p-4';
             let buttons = `
                 <div class="flex justify-between mt-4">
@@ -67,10 +65,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.className = cardClass;
                 card.dataset.targetId = target.id; // Додавання targetId до data-атрибута картки
 
-                let title = `${target.squares}`;
+                let title = `${target.squares} /`;
                 if (target.stream) {
-                    title += ` / ${target.stream}`;
+                    title += ` ${target.stream}`;
                 }
+
+                title += `<button class="edit-stream-button ml-2" data-target-id="${target.id}">
+                                <img src="../edit-icon.svg" alt="Редагувати" class="w-5 h-5">
+                            </button>`;
 
                 let takeoffInfo = '';
                 const relatedTakeoffs = takeoffs.filter(takeoff => takeoff.target === target.id);
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 card.innerHTML = `
-                    <h3 class="text-lg font-semibold mb-2">${title}</h3>
+                    <h3 class="text-lg font-semibold mb-2 flex">${title}</h3>
                     ${takeoffInfo}
                     ${buttons}
                 `;
@@ -162,6 +164,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 resultPopup.classList.remove('hidden');
                 // Зберігаємо ID вильоту в data-атрибуті кнопки "Підтвердити"
                 resultConfirmButton.dataset.takeoffId = button.dataset.takeoffId;
+            });
+        });
+
+        const editStreamButtons = document.querySelectorAll('.edit-stream-button');
+        editStreamButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = button.dataset.targetId;
+                const target = targets.find(t => t.id === targetId);
+
+                if (target) {
+                    const newStream = prompt('Введіть новий стрім:', target.stream);
+                    if (newStream !== null) {
+                        target.stream = newStream;
+                        localStorage.setItem('targets', JSON.stringify(targets));
+                        displayTargets();
+                    }
+                }
             });
         });
     }

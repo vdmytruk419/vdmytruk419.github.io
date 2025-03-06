@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultPopup = document.getElementById('result-popup');
     const resultCancelButton = document.getElementById('result-cancel-button');
     const resultConfirmButton = document.getElementById('result-confirm-button');
+    const statisticsButton = document.getElementById('statistics-button');
+    const statisticsTableContainer = document.getElementById('statistics-table-container');
+    const statisticsTableBody = document.getElementById('statistics-table-body');
+
 
     createTargetButton.addEventListener('click', function() {
         targetPopup.classList.remove('hidden');
@@ -37,7 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let targets = JSON.parse(localStorage.getItem('targets')) || [];
         const takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || []; // Отримання takeoffs з localStorage
 
+        // показуємо лише цілі, що мають ID
         targets = targets.filter(target => target.id);
+        // показуємо лише цілі, які не закриті
+        targets = targets.filter(target => target.status !== 'Closed');
         // Сортування цілей за часом створення (від найновішої до найстарішої)
         targets.sort((a, b) => new Date(b.creationTime) - new Date(a.creationTime));
 
@@ -250,5 +257,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         resultPopup.classList.add('hidden');
+    });
+
+    function displayStatistics() {
+        statisticsTableBody.innerHTML = ''; // Очищення таблиці
+
+        const takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
+        const targets = JSON.parse(localStorage.getItem('targets')) || [];
+
+        takeoffs.forEach(takeoff => {
+            if (takeoff.status === 'Completed') {
+                const target = targets.find(t => t.id === takeoff.target);
+                if (target) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="border px-4 py-2">${takeoff.crew}</td>
+                        <td class="border px-4 py-2">${target.squares}</td>
+                        <td class="border px-4 py-2">${new Date(takeoff.takeoffTime).toLocaleString()}</td>
+                        <td class="border px-4 py-2">${new Date(takeoff.completionTime).toLocaleString()}</td>
+                        <td class="border px-4 py-2">${takeoff.result}</td>
+                        <td class="border px-4 py-2">${target.stream || '-'}</td>
+                    `;
+                    statisticsTableBody.appendChild(row);
+                }
+            }
+        });
+    }
+
+    statisticsButton.addEventListener('click', function() {
+        statisticsTableContainer.classList.remove('hidden');
+        displayStatistics();
     });
 });

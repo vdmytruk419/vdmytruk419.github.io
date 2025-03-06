@@ -28,11 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
     populatePositions(); // Заповнюємо список при завантаженні сторінки
 
     document.getElementById('forward-button').addEventListener('click', function() {
-        document.getElementById('position-container').style.display = 'none';
-        document.getElementById('device-quantity-form').style.display = 'flex';
+        document.getElementById('position-container').classList.add('hidden');
+        document.getElementById('device-quantity-form').classList.remove('hidden');
     });
 
     document.getElementById('next-button').addEventListener('click', function() {
+        const username = localStorage.getItem('username');
+        const position = document.getElementById('position-select').value;
+        const device = document.getElementById('device').value;
+        const quantity = document.getElementById('quantity').value;
+
+        let fpv = JSON.parse(localStorage.getItem('fpv')) || {};
+        fpv[username] = {
+            position: position,
+            device: device,
+            quantity: quantity
+        };
+        localStorage.setItem('fpv', JSON.stringify(fpv));
+        
         window.location.href = 'f2.html';
     });
 });

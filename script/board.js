@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     logoutButton.addEventListener('click', function() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('username');
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     });
 
     const createTargetButton = document.getElementById('create-target-button');

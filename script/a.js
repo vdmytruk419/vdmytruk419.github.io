@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             label.textContent = prefix + ' ' + i;
 
             const div = document.createElement('div'); // Обгортаємо в div
-            div.style.marginTop = '10px'; // Додаємо марджин
+            div.className = 'mt-2 flex items-center gap-2';
 
             div.appendChild(checkbox);
             div.appendChild(label);
@@ -55,31 +55,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
         positions.forEach(position => {
             const positionDiv = document.createElement('div');
-            positionDiv.classList.add('position-item'); // Додаємо клас для стилізації
+            positionDiv.className = 'mb-2 border border-gray-300 rounded p-4';
     
             const nameDiv = document.createElement('div');
-            nameDiv.textContent = position.name;
+            nameDiv.className = 'flex items-center justify-between font-bold bg-gray-200 p-2 mb-2';
+    
+            const nameText = document.createElement('span');
+            nameText.textContent = position.name;
+            nameDiv.appendChild(nameText);
+    
+            const deletePositionButton = document.createElement('button');
+            deletePositionButton.className = 'bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded text-sm cursor-pointer';
+            deletePositionButton.textContent = '-';
+            deletePositionButton.addEventListener('click', function() {
+                deletePosition(position.name);
+            });
+            nameDiv.appendChild(deletePositionButton);
+    
             positionDiv.appendChild(nameDiv);
     
             const squaresDiv = document.createElement('div');
-            squaresDiv.textContent = `${position.squares[0]} ... ${position.squares[position.squares.length - 1]}`;
+            squaresDiv.className = 'flex items-center m-1';
+            if (position.squares.length > 0) {
+                squaresDiv.textContent = `${position.squares[0]} ... ${position.squares[position.squares.length - 1]}`;
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'ml-auto bg-gray-300 text-gray-700 py-1 px-2 rounded text-sm cursor-pointer';
+                deleteButton.textContent = '-';
+                deleteButton.addEventListener('click', function() {
+                    deleteSquares(position.name);
+                });
+                squaresDiv.appendChild(deleteButton);
+            }
+    
             positionDiv.appendChild(squaresDiv);
     
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '-';
-            deleteButton.classList.add('delete-button'); // Додаємо клас для стилізації
-            deleteButton.addEventListener('click', function() {
-                deleteSquares(position.name);
-            });
-            squaresDiv.appendChild(deleteButton);
-            
             const addButton = document.createElement('button');
-            addButton.textContent = '+ додати';
-            addButton.classList.add('add-button'); // Додаємо клас для стилізації
+            addButton.className = 'm-1 bg-gray-300 text-gray-700 py-1 px-2 rounded text-sm cursor-pointer';
+            addButton.textContent = '+ додати квадрати';
             positionDiv.appendChild(addButton);
     
             positionsList.appendChild(positionDiv);
         });
+    }
+    
+    function deletePosition(positionName) {
+        let positions = JSON.parse(localStorage.getItem('positions')) || [];
+        positions = positions.filter(position => position.name !== positionName);
+        localStorage.setItem('positions', JSON.stringify(positions));
+        displayPositions();
     }
     
     function deleteSquares(positionName) {

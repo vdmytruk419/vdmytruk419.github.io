@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сторінка F2</title>
-    <link rel="stylesheet" href="../style/f2.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="header">
-        <span id="username-display"></span>
-        <button id="logout-button">Вийти</button>
+<body class="font-sans">
+    <div class="header bg-gray-100 p-3 flex justify-between items-center">
+        <span id="username-display" class="font-semibold"></span>
+        <button id="logout-button" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-sm">Вийти</button>
     </div>
-    <div class="content" id="approved-targets-container">
-        <h2>Підтверджені цілі</h2>
-        <div id="approved-targets-list"></div>
+    <div class="content p-5">
+        <div id="user-position" class="mb-4">
+            <h2 class="text-xl font-semibold mb-2">Позиція користувача</h2>
+            <div id="position-info"></div>
+        </div>
+        <div id="in-progress-targets-container" class="mb-4">
+            <h2 class="text-2xl font-semibold mb-4">В роботі</h2>
+            <div id="in-progress-targets-list" class="flex flex-wrap items-start"></div>
+        </div>
+        <div id="approved-targets-container">
+            <h2 class="text-2xl font-semibold mb-4">Підтверджені цілі</h2>
+            <div id="approved-targets-list" class="flex flex-wrap items-start"></div>
+        </div>
     </div>
     <script src="../script/f2.js"></script>
 </body>

@@ -64,9 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.className = cardClass;
                 card.dataset.targetId = target.id; // Додавання targetId до data-атрибута картки
 
-                let title = `${target.squares} /`;
+                let title = `${target.squares}`;
+                title += `<button class="edit-square-button mx-2" data-target-id="${target.id}">
+                                <img src="../edit-icon.svg" alt="Редагувати" class="w-5 h-5">
+                            </button> `;
                 if (target.stream) {
-                    title += ` ${target.stream}`;
+                    title += ` / ${target.stream}`;
                 }
 
                 title += `<button class="edit-stream-button ml-2" data-target-id="${target.id}">
@@ -173,6 +176,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 resultPopup.classList.remove('hidden');
                 // Зберігаємо ID вильоту в data-атрибуті кнопки "Підтвердити"
                 resultConfirmButton.dataset.takeoffId = button.dataset.takeoffId;
+            });
+        });
+
+        const editSquareButtons = document.querySelectorAll('.edit-square-button');
+        editSquareButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = button.dataset.targetId;
+                const target = targets.find(t => t.id === targetId);
+
+                if (target) {
+                    const newSquare = prompt('Введіть новий квадрат:', target.squares);
+                    if (newSquare !== null) {
+                        target.squares = newSquare;
+                        localStorage.setItem('targets', JSON.stringify(targets));
+                        displayTargets();
+                    }
+                }
             });
         });
 

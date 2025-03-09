@@ -79,7 +79,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     takeoffInfo = `<ul class="space-y-2">${relatedTakeoffs.map(takeoff => {
                         let takeoffItem = `<li class="flex justify-between items-center">${takeoff.crew}`;
                         if (takeoff.status === 'Created') {
-                            takeoffItem += `<button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-2 rounded takeoff-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Виліт</button>`;
+                            // takeoffItem += `<button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-2 rounded takeoff-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Виліт</button>`;
+                            takeoffItem += `
+                                <div class="flex gap-2">
+                                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-2 rounded takeoff-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Виліт</button>
+                                    <button class="bg-gray-300 hover:bg-grey-400 text-gray-800 py-1 px-2 rounded delete-takeoff-button" data-takeoff-id="${takeoff.id}" title="Скасувати відправлення">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            `;
                         } else if (takeoff.status === 'InFlight') {
                             takeoffItem += `<span>${new Date(takeoff.takeoffTime).toLocaleTimeString()}</span><button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded result-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Результат</button>`;
                         } else if (takeoff.status === 'Completed') {
@@ -179,6 +189,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         localStorage.setItem('targets', JSON.stringify(targets));
                         displayTargets();
                     }
+                }
+            });
+        });
+
+        const deleteTakeoffButtons = document.querySelectorAll('.delete-takeoff-button');
+        deleteTakeoffButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const takeoffId = button.dataset.takeoffId;
+                const confirmDelete = confirm('Ви впевнені, що хочете видалити виліт?');
+                if (confirmDelete) {
+                    let takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
+                    takeoffs = takeoffs.filter(takeoff => takeoff.id !== takeoffId);
+                    localStorage.setItem('takeoffs', JSON.stringify(takeoffs));
+                    displayTargets(); // Оновлення відображення цілей
                 }
             });
         });

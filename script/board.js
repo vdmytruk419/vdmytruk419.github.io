@@ -206,9 +206,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    }
 
-    displayTargets(); // Виклик функції для відображення цілей при завантаженні сторінки
+        displayCrews();
+    }
 
     saveTargetButton.addEventListener('click', function() {
         const squares = document.getElementById('squares').value;
@@ -346,4 +346,67 @@ document.addEventListener('DOMContentLoaded', function() {
         statisticsTableContainer.classList.remove('hidden');
         displayStatistics();
     });
+
+    function displayCrews() {
+        const crewsList = document.getElementById('crews-list');
+        crewsList.innerHTML = ''; // Очищення списку
+    
+        let crews = JSON.parse(localStorage.getItem('crews')) || ["Альянс", "Дача", "Оливка", "Вежа", "Легенда"];
+        let takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
+        let openTargets = (JSON.parse(localStorage.getItem('targets')) || []).filter(t => t.status !== 'Closed');
+
+        crews.forEach(crew => {
+            const li = document.createElement('li');
+            li.className = 'flex items-center mb-1';
+    
+            let crewTakeoffs = takeoffs
+                .filter(takeoff => openTargets.find(target => target.id === takeoff.target))
+                .filter(takeoff => takeoff.crew === crew);
+            let circleColor = 'bg-green-500'; // Зелений за замовчуванням
+    
+            if (crewTakeoffs.length > 0) {
+                let hasCreated = false;
+                let hasInFlight = false;
+    
+                crewTakeoffs.forEach(takeoff => {
+                    if (takeoff.status === 'Created') {
+                        hasCreated = true;
+                    } else if (takeoff.status === 'InFlight') {
+                        hasInFlight = true;
+                    }
+                });
+    
+                if (hasInFlight) {
+                    circleColor = 'bg-blue-500';
+                } else if (hasCreated) {
+                    circleColor = 'bg-yellow-500';
+                }
+            }
+    
+            const circle = document.createElement('span');
+            circle.className = `w-3 h-3 rounded-full mr-2 ${circleColor}`;
+
+            const span = document.createElement('span');
+            span.className = '';
+            span.textContent = crew;
+    
+            li.appendChild(circle);
+            li.appendChild(span);
+            crewsList.appendChild(li);
+        });
+    }
+
+    // Додавання обробника подій для disclosure element
+    const crewsDisclosure = document.getElementById('crews-disclosure');
+    const crewsChevron = document.getElementById('crews-chevron');
+
+    crewsDisclosure.addEventListener('toggle', function() {
+        if (crewsDisclosure.open) {
+            crewsChevron.classList.remove('-rotate-90');
+        } else {
+            crewsChevron.classList.add('-rotate-90');
+        }
+    });
+
+    displayTargets(); // Виклик функції для відображення цілей при завантаженні сторінки
 });

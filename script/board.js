@@ -326,6 +326,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
         const targets = JSON.parse(localStorage.getItem('targets')) || [];
 
+        // Сортування вильотів за часом завершення (від найновішої до найстарішої)
+        takeoffs.sort((a, b) => new Date(b.completionTime) - new Date(a.completionTime));
+
         takeoffs.forEach(takeoff => {
             if (takeoff.status === 'Completed') {
                 const target = targets.find(t => t.id === takeoff.target);

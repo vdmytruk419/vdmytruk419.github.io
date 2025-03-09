@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statisticsButton = document.getElementById('statistics-button');
     const statisticsTableContainer = document.getElementById('statistics-table-container');
     const statisticsTableBody = document.getElementById('statistics-table-body');
+    const selectTargetConfirmButton = document.getElementById('select-target-button');
 
     createTargetButton.addEventListener('click', function() {
         targetPopup.classList.remove('hidden');
@@ -94,7 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             `;
                         } else if (takeoff.status === 'InFlight') {
-                            takeoffItem += `<span>${new Date(takeoff.takeoffTime).toLocaleTimeString()}</span><button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded result-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Результат</button>`;
+                            takeoffItem += `<span>${new Date(takeoff.takeoffTime).toLocaleTimeString()}</span>`;
+                            takeoffItem += `
+                                <div class="flex gap-2">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded result-button" data-takeoff-id="${takeoff.id}"${target.status == 'Closed' ? ' disabled' : ''}>Результат</button>
+                                    <button class="bg-gray-300 hover:bg-grey-400 text-gray-800 py-1 px-2 rounded change-target-takeoff-button" data-takeoff-id="${takeoff.id}" title="Змінити ціль">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                        </svg>
+                                    </button>
+                                </div>`;
                         } else if (takeoff.status === 'Completed') {
                             takeoffItem += `<span>${new Date(takeoff.takeoffTime).toLocaleTimeString()}</span><span>${takeoff.result}</span><span>${new Date(takeoff.completionTime).toLocaleTimeString()}</span>`; // Додавання часу завершення
                         }
@@ -146,6 +156,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 sendTargetPopup.classList.remove('hidden');
                 // Зберігаємо ID цілі в data-атрибуті кнопки "Підтвердити"
                 sendConfirmButton.dataset.targetId = button.dataset.targetId;
+            });
+        });
+
+        const changeTargetTakeoffButtons = document.querySelectorAll('.change-target-takeoff-button');
+        changeTargetTakeoffButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('select-target-popup').classList.remove('hidden');
+                // Зберігаємо ID цілі в data-атрибуті кнопки "Підтвердити"
+                selectTargetConfirmButton.dataset.takeoffId = button.dataset.takeoffId;
+                populateApprovedTargets();
             });
         });
 
@@ -443,5 +463,43 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             commentField.style.display = 'none';
         }
+    });
+
+    function populateApprovedTargets() {
+        const selectTarget = document.getElementById('select-target');
+        selectTarget.innerHTML = '<option value="">Виберіть ціль</option>';
+
+        const targets = JSON.parse(localStorage.getItem('targets')) || [];
+        targets.filter(target => target.status === 'Approved').forEach(target => {
+            const option = document.createElement('option');
+            option.value = target.id;
+            option.textContent = `${target.squares} / ${target.stream}`;
+            selectTarget.appendChild(option);
+        });
+    }
+
+    // Додавання обробників подій для попапу вибору цілі
+    selectTargetConfirmButton.addEventListener('click', function() {
+        const selectedTargetId = document.getElementById('select-target').value;
+        const takeoffId = this.dataset.takeoffId;
+
+        if (selectedTargetId && takeoffId) {
+            // Зміна цілі для вильоту
+            let takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
+
+            takeoffs.forEach(takeoff => {
+                if (takeoff.id === takeoffId) {
+                    takeoff.target = selectedTargetId;
+                }
+            });
+
+            localStorage.setItem('takeoffs', JSON.stringify(takeoffs));
+            document.getElementById('select-target-popup').classList.add('hidden');
+            displayTargets();
+        }
+    });
+
+    document.getElementById('cancel-select-target-button').addEventListener('click', function() {
+        document.getElementById('select-target-popup').classList.add('hidden');
     });
 });

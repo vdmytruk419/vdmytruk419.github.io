@@ -282,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     resultConfirmButton.addEventListener('click', function() {
         const result = document.getElementById('result-status').value;
+        const commentField = document.getElementById('result-comment');
         const takeoffId = resultConfirmButton.dataset.takeoffId;
         const takeoffs = JSON.parse(localStorage.getItem('takeoffs')) || [];
         const takeoffIndex = takeoffs.findIndex(t => t.id === takeoffId);
@@ -291,6 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
             takeoffs[takeoffIndex].status = 'Completed';
             takeoffs[takeoffIndex].result = result; // Додавання результату вильоту
             takeoffs[takeoffIndex].completionTime = now.toISOString(); // Додавання completionTime
+            takeoffs[takeoffIndex].comment = commentField.value;
             localStorage.setItem('takeoffs', JSON.stringify(takeoffs));
             console.log('Результат:', takeoffId, 'статус змінено на Completed, результат:', result);
             displayTargets(); // Оновлення списку цілей після зміни статусу вильоту
@@ -299,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         resultPopup.classList.add('hidden');
+        commentField.value = '';
     });
 
     const sendCrewSelect = document.getElementById('send-crew');
@@ -409,4 +412,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     displayTargets(); // Виклик функції для відображення цілей при завантаженні сторінки
+
+    document.getElementById('result-status').addEventListener('change', function() {
+        const commentField = document.getElementById('comment-field');
+        if (this.value === 'Не уражено') {
+            commentField.style.display = 'block';
+        } else {
+            commentField.style.display = 'none';
+        }
+    });
 });

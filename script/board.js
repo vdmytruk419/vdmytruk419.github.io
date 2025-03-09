@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const statisticsTableContainer = document.getElementById('statistics-table-container');
     const statisticsTableBody = document.getElementById('statistics-table-body');
 
-
     createTargetButton.addEventListener('click', function() {
         targetPopup.classList.remove('hidden');
     });
@@ -277,6 +276,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         resultPopup.classList.add('hidden');
     });
+
+    const sendCrewSelect = document.getElementById('send-crew');
+
+    function populateCrewSelect() {
+        sendCrewSelect.innerHTML = ''; // Очищення випадаючого списку
+
+        let crews = JSON.parse(localStorage.getItem('crews')) || ["Альянс", "Дача", "Оливка", "Вежа", "Легенда"];
+        crews.forEach(crew => {
+            const option = document.createElement('option');
+            option.value = crew;
+            option.textContent = crew;
+            sendCrewSelect.appendChild(option);
+        });
+    }
+
+    populateCrewSelect(); // Заповнення випадаючого списку при завантаженні сторінки
 
     function displayStatistics() {
         statisticsTableBody.innerHTML = ''; // Очищення таблиці

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Налаштування дошки</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans">
+    <div class="header bg-gray-100 p-3 flex justify-between items-center">
+        <span id="username-display" class="font-semibold"></span>
+        <button id="logout-button" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-1 px-2 rounded text-sm">Вийти</button>
+    </div>
+    <div class="content p-5">
+        <div class="flex items-center mb-4">
+            <a href="board.html" class="bg-gray-300 hover:bg-gray-400 rounded p-2 mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+            </a>
+            <h1 class="text-3xl font-semibold">Налаштування дошки</h1>
+        </div>
+        <div class="mt-4">
+            <label for="crews-list" class="block text-sm font-medium text-gray-700">Список екіпажів</label>
+            <textarea id="crews-list" rows="5" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"></textarea>
+        </div>
+        <button id="save-settings-button" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Зберегти</button>
+    </div>
+
+    <script src="../script/board-settings.js"></script>
+</body>
+</html>
